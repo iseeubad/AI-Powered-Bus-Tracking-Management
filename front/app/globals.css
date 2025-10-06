@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
+
+@import "tailwindcss";
+
+* {
+  font-family: "Geist Mono";
+}
+
+:root {
+  --bus-route-1 : #FF00EE;
+  --bus-route-2 : #00FFDD;
+  --bus-route-width: 4px;
+  --bg : #000;
+  --border-color: #ffffff4d;
+  --border-radius: 10;
+  --font-color-primary: #fff;
+  --font-color-second: #737373;
+}
+
+
+body {
+  background: var(--bg);
+}
+
+.scroll-left::-webkit-scrollbar {
+  width: 1px; /* thin scrollbar */
+}
+
+.scroll-left::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.123); /* semi-transparent */
+}
+
+.scroll-left::-webkit-scrollbar-track {
+  background: transparent; /* no visible track */
+}
+
+/* Move scrollbar to the left */
+.scroll-left {
+  direction: rtl; /* flip scrollbar to left */
+}
+
+.scroll-left > * {
+  direction: ltr; /* keep content readable */
+}
