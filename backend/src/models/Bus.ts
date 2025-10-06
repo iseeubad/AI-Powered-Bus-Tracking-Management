@@ -20,7 +20,7 @@ export interface IBus extends Document {
             coordinates: [number, number];
         };
         speed_kmh?: number; // bus speed in km/h
-        heading_deg?: number; // direction jof mouvement in degrees 
+        heading_deg?: number; // direction of mouvement in degrees 
         near_stop_id?: Types.ObjectId; // the stop that is closet to this bus right now, it is stored as a reference to a Stop document in MongoDB
         occupancy?: { // info about how many people are inside
             observed?: number; // estimate passengers count (from camera or sensor)
