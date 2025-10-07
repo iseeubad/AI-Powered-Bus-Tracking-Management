@@ -4,7 +4,7 @@ export interface IBus extends Document {
     fleet_no: string; // the unique internal bus number
     plate?: string; // the licence plate number
     operator?: string; // which bus company run this bus
-    model?: string; // bus model like mercedes wla volvo wla chihaja akhra
+    busModel?: string; // bus model like mercedes wla volvo wla chihaja akhra
     capacity?: { // how many passenger can bus take seated and standing 
         seated?: number;
         standing?: number;
@@ -34,7 +34,7 @@ const busSchema = new Schema<IBus>({
     fleet_no: {type: String, required: true, unique: true },
     plate: {type: String, unique: true, sparse: true },
     operator: String,
-    model: String,
+    busModel: String,
     capacity: {
         seated: Number,
         standing: Number,
@@ -42,10 +42,10 @@ const busSchema = new Schema<IBus>({
     features: [String],
     status: {
         type: String,
-        enum: ["IN_SERVICE", "OUT_OF_SERVICE", "MAINTENACE"],
+        enum: ["IN_SERVICE", "OUT_OF_SERVICE", "MAINTENANCE"],
         default: "IN_SERVICE"
     },
-    assigned_route: String,
+    assigned_routes: String,
     current_trip_id: String,
     last_telemetry: {
         ts: {type: Date, default: Date.now },
@@ -53,8 +53,8 @@ const busSchema = new Schema<IBus>({
             type: {type: String, enum: ["Point"], default: "Point"},
             coordinates: [Number]
         },
-        speed_kmh: Number;
-        heading_deg: Number;
+        speed_kmh: Number,
+        heading_deg: Number,
         near_stop_id: {type: Schema.Types.ObjectId, ref: "Stop"},
         occupancy: {
             observed: Number,
