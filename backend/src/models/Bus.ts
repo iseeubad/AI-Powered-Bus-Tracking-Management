@@ -1,4 +1,4 @@
-import { Schema, model, Document, Type } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface IBus extends Document {
     fleet_no: string; // the unique internal bus number
@@ -36,8 +36,8 @@ const busSchema = new Schema<IBus>({
     operator: String,
     model: String,
     capacity: {
-        seated: Number;
-        standing: Number;
+        seated: Number,
+        standing: Number,
     },
     features: [String],
     status: {
@@ -58,7 +58,7 @@ const busSchema = new Schema<IBus>({
         near_stop_id: {type: Schema.Types.ObjectId, ref: "Stop"},
         occupancy: {
             observed: Number,
-            confidance: Number
+            confidence: Number
         },
         anomalies: [String]
     }
