@@ -4,7 +4,7 @@ export interface IStop extends Document {
     code: string;
     name: string;
     location: {
-        type: "point";
+        type: "Point";
         coordinates: [number, number];
     };
     zone?: string;
@@ -14,14 +14,14 @@ export interface IStop extends Document {
     last_demand_update?: Date;
 }
 
-const stopSchema = new Schem<IStop>({
+const stopSchema = new Schema<IStop>({
     code : {type: String, unique: true, index: true },
     name: {type: String, unique: true, index: true },
     location: {
         type: {
             type: String,
             enum: ["Point"],
-            default: "point"
+            default: "Point"
         },
         coordinates: {
             type: [Number],
