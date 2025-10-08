@@ -4,24 +4,7 @@ import { Marker, Popup } from "react-leaflet"
 import L from "leaflet"
 import { useMemo } from "react"
 import { cn } from "@/lib/utils"
-
-export interface BusMarkerProps {
-  id: string
-  lat: number
-  lon: number
-  route: string
-  className?: string
-  isOnTime?: boolean
-  onClick?: () => void
-  eta?: string
-  price?: string
-  passengers?: number
-  capacity?: number
-  nextStop?: string
-  driver?: string
-  path?: string[]
-  onShowMore?: () => void
-}
+import type { BusMarkerProps } from "@/types"
 
 export default function BusMarker({ 
   id, 
