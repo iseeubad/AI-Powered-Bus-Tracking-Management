@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css"
 import { useMemo, type ReactNode, type CSSProperties } from "react"
 import { MapContainer, TileLayer } from "react-leaflet"
 import ZoomControl from "./ZoomControl"
-import BusMarker from "./bus/BusMarker"
+import BusMarker from "./bus/BusMarker" // Updated import path to use bus subfolder
 
 export type Bus = {
   id: string

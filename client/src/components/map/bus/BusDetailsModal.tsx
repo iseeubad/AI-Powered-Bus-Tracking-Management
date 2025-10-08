@@ -32,29 +32,29 @@ export function BusDetailsDialog({
       icon: DollarSign,
       label: "Fare",
       value: bus.price,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
+      color: "text-teal-600",
+      bgColor: "bg-teal-50",
     },
     eta: {
       icon: Clock,
       label: "Arrival",
       value: bus.eta,
-      color: "text-blue-600",
+      color: "text-blue-500",
       bgColor: "bg-blue-50",
     },
     passengers: {
       icon: Users,
       label: "Capacity",
       value: `${bus.passengers}/${bus.capacity}`,
-      color: "text-purple-600",
+      color: "text-purple-900",
       bgColor: "bg-purple-50",
     },
     nextStop: {
       icon: MapPin,
       label: "Next Stop",
       value: bus.nextStop,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
+      color: "text-red-700",
+      bgColor: "bg-red-50",
     },
   }
 
@@ -68,7 +68,7 @@ export function BusDetailsDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[400px] p-0">
-        <DialogHeader className="p-6 pb-4">
+        <DialogHeader className="p-4 pb-4">
           <DialogTitle className="text-xl">Bus {bus.id}</DialogTitle>
           <div className="flex items-center gap-2 mt-2">
             <Badge variant={bus.status === "On Time" ? "default" : "destructive"}>
@@ -78,16 +78,16 @@ export function BusDetailsDialog({
           </div>
         </DialogHeader>
 
-        <div className="px-6 pb-6">
+        <div className="px-4 pb-4">
           {/* Clickable Tags */}
-          <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="grid grid-cols-2 gap-2 mb-2">
             {Object.entries(tagInfo).map(([key, info]) => {
               const Icon = info.icon
               return (
                 <button
                   key={key}
                   onClick={() => setSelectedTag(selectedTag === key ? null : key)}
-                  className={`p-3 rounded-lg border transition-all ${
+                  className={`p-2 rounded-lg border transition-all ${
                     selectedTag === key
                       ? `${info.bgColor} border-current`
                       : "bg-muted/50 border-border hover:bg-muted"
@@ -107,7 +107,7 @@ export function BusDetailsDialog({
 
           {/* Selected Info Details */}
           {selectedInfo && (
-            <div className={`p-4 rounded-lg ${selectedInfo.bgColor} mb-4`}>
+            <div className={`p-2 rounded-lg ${selectedInfo.bgColor} mb-2`}>
               <div className="flex items-center gap-2 mb-2">
                 <selectedInfo.icon className={`w-5 h-5 ${selectedInfo.color}`} />
                 <span className="font-medium">{selectedInfo.label}</span>
@@ -124,7 +124,7 @@ export function BusDetailsDialog({
           )}
 
           {/* Route Path */}
-          <div className="mb-4">
+          <div className="mb-2">
             <p className="text-sm font-medium mb-2">Route Stops</p>
             <div className="flex flex-wrap gap-1">
               {bus.path.map((stop, idx) => (

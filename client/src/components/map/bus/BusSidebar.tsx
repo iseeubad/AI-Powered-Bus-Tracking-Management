@@ -29,7 +29,7 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
   const [expandedBus, setExpandedBus] = useState<string | null>(null)
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-1">
       {buses.map((bus) => (
         <div
           key={bus.id}
@@ -37,7 +37,7 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
         >
           <button
             onClick={() => setExpandedBus(expandedBus === bus.id ? null : bus.id)}
-            className="w-full text-left p-4 hover:bg-muted/50 transition-colors"
+            className="w-full text-left p-2 hover:bg-muted/50 transition-colors"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
@@ -54,8 +54,8 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
                   className={cn(
                     "text-xs px-2 py-1 rounded-full whitespace-nowrap",
                     bus.status === "On Time"
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                      : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
+                      ? "bg-green-100 text-teal-700 dark:bg-green-900/30 dark:text-teal-400"
+                      : "bg-orange-100 text-red-700 dark:bg-orange-900/30 dark:text-red-400",
                   )}
                 >
                   {bus.status}
@@ -70,7 +70,7 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
                 {bus.passengers}/{bus.capacity} passengers
               </span>
               <span>→ {bus.nextStop}</span>
-              <span className="font-medium text-green-600 dark:text-green-400">{bus.eta}</span>
+              <span className="font-medium text-teal-600 dark:text-teal-400">{bus.eta}</span>
             </div>
           </button>
 
@@ -80,11 +80,11 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">Price</p>
-                    <p className="font-semibold text-green-600 dark:text-green-400">{bus.price}</p>
+                    <p className="font-semibold text-teal-600 dark:text-teal-400">{bus.price}</p>
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">ETA</p>
-                    <p className="font-semibold text-blue-600 dark:text-blue-400">{bus.eta}</p>
+                    <p className="font-semibold text-blue-500 dark:text-blue-400">{bus.eta}</p>
                   </div>
                 </div>
 

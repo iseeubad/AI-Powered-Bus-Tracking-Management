@@ -144,7 +144,7 @@ export default function BusTrackerPage() {
                       {buses.length} buses currently in service
                     </SheetDescription>
                   </SheetHeader>
-                  <div className="mt-4 sm:mt-6">
+                  <div className="mt-2 sm:mt-4">
                     <BusSidebar buses={buses} onTrackBus={handleTrackBus} />
                   </div>
                 </SheetContent>
