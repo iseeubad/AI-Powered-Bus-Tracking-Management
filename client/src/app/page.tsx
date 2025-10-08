@@ -12,10 +12,12 @@ import {
   SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { BusSidebar, BusDetailsDialog } from "@/components/map"
+import { BusSidebar } from "@/components/map/bus/BusSidebar"
+import { BusDetailsDialog } from "@/components/map/bus/BusDetailsModal"
 import { useBusTracking } from "@/hooks"
 import { MOCK_BUSES } from "@/data"
 import { MAP_CONFIG, APP_CONFIG } from "@/constants"
+import type { BusItem, MapBus } from "@/types"
 import './leaflet.scss'
 
 // Dynamically import Map component with SSR disabled
@@ -31,9 +33,16 @@ export default function BusTrackerPage() {
     sheetOpen,
     setSheetOpen,
     handleTrackBus,
-    handleShowMore,
     focusBusForMap,
   } = useBusTracking()
+
+  const handleShowMore = (mapBus: MapBus) => {
+    // Convert MapBus to BusItem by finding the full bus data
+    const fullBus = buses.find(b => b.id === mapBus.id)
+    if (fullBus) {
+      setSelectedBus(fullBus)
+    }
+  }
 
   const mapBuses = useMemo(() =>
     buses.map((bus) => ({

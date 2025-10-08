@@ -93,11 +93,13 @@ src/
 
 ### Import Style
 
-Barrel exports are provided to keep imports concise:
+Barrel exports are provided to keep imports concise, but Map component must be imported directly to prevent SSR issues:
 
 ```ts
-// Components
-import { BusSidebar, BusDetailsDialog } from "@/components/map"
+// Components (Map excluded from barrel export to prevent SSR)
+import { BusSidebar } from "@/components/map/bus/BusSidebar"
+import { BusDetailsDialog } from "@/components/map/bus/BusDetailsModal"
+const Map = dynamic(() => import("@/components/map/Map"), { ssr: false })
 
 // Hooks
 import { useBusTracking } from "@/hooks"
