@@ -2,12 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
-  "main": "server.js",
-=======
   "type": "module",
   "main": "index.js",
->>>>>>> 074294717b6a539fd22049bcea24cb3ad7e588eb
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
@@ -18,15 +14,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^5.0.3",
-<<<<<<< HEAD
-    "@types/ws": "^8.18.1",
-=======
     "@types/node": "^24.7.0",
->>>>>>> 074294717b6a539fd22049bcea24cb3ad7e588eb
     "nodemon": "^3.1.10",
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/ws": "^8.18.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",

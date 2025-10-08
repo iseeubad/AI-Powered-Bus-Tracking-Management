@@ -16,6 +16,9 @@
     "skipLibCheck": true,                     // Skip checking type definitions for dependencies
     "forceConsistentCasingInFileNames": true, // Prevent filename case mismatches
 
+    "emitDeclarationOnly": true, // needed to be added
+    "allowImportingTsExtensions": true, // Ensuring we can work with it and removes error
+
     /* === Source maps & debugging === */
     "sourceMap": true,                        // Generate source maps for debugging
     "declaration": true,                      // Generate .d.ts files for type declarations
