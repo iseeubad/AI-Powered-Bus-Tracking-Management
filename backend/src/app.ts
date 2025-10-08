@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
-app.use(experss.json());
+app.use(express.json());
 
 app.use("/api/buses", busRoutes);
 app.use("/api/stops", stopRoutes);
