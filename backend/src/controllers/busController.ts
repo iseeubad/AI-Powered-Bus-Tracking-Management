@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Bus } from "../models/Bus.ts";
+import { Bus } from "../models/Bus";
 
 
 // create a new bus
@@ -54,7 +54,7 @@ export const updateBus = async (req: Request, res: Response) => {
 export const deleteBus = async (req = Request, res: Response) => {
     try {
         const bus = Bus.findByIdAndDelete(req.params.id);
-        if (!bus) return res.status(404).json( message: "Bus not found");
+        if (!bus) return res.status(404).json({ message: "Bus not found" });
         res.json(bus);
     } catch (error){
         res.status(500).json({ message: "Error deleting bus", error });

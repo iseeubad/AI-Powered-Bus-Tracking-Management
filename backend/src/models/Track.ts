@@ -44,21 +44,21 @@ export interface ITrack extends Document {
 const trackSchema = new Schema<ITrack>({
     ts: { type: Date, default: Date.now, index: true },
     bus_meta: {
-        bus_id: { type: Schema.Type.ObjectId, ref: "Bus", required: true },
+        bus_id: { type: Schema.Types.ObjectId, ref: "Bus", required: true },
         fleet_no: String,
         route: String,
     },
     loc: {
         type: { type: String, enum: ["Point"], default: "Point" },
         coordinates: { type: [Number], required: true },
-    }
+    },
     speed_kmh: Number,
     heading_deg: Number,
     gps: {
         hdop: Number,
         fix: Number 
     }, 
-    near_stop_id: { type: Schema.Type.ObjectId, ref: "Stop" },
+    near_stop_id: { type: Schema.Types.ObjectId, ref: "Stop" },
     occupancy: {
         observed: Number,
         confidence: Number 
@@ -70,12 +70,12 @@ const trackSchema = new Schema<ITrack>({
             uncertainty_s: Number 
         }],
         demand_forecast: [{
-            stop_id: { type: Schem.Types.ObjectId, ref: "Stop" },
+            stop_id: { type: Schema.Types.ObjectId, ref: "Stop" },
             score: Number,
             horizon_min: Number
         }],
         best_station_suggestion: {
-            stop_id: { type: Schem.Types.ObjectId, ref: "Stop" },
+            stop_id: { type: Schema.Types.ObjectId, ref: "Stop" },
             reason: [String]
         }
     },

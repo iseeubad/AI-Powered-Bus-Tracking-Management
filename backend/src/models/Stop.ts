@@ -10,8 +10,9 @@ export interface IStop extends Document {
     zone?: string;
     amenities?: string[];
     is_active?: boolean;
+    served_routes: string[];
     demand_score?: number;
-    last_demand_update?: Date;
+    last_demande_update?: Date;
 }
 
 const stopSchema = new Schema<IStop>({
