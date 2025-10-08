@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { MapPin, Bus, TrendingUp, Navigation, Menu, Users } from "lucide-react"
 import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,8 @@ import {
 import { BusSidebar, type BusItem } from "@/components/map/bus/BusSidebar"
 import { StatsCard } from "@/components/map/bus/StatsCards"
 import { BusDetailsDialog } from "@/components/map/bus/BusDetailsModal"
+import './leaflet.scss';
+import { Card } from "@/components/ui/card"
 
 // Dynamically import Map component with SSR disabled
 const Map = dynamic(() => import("@/components/map/Map"), {
@@ -85,6 +87,16 @@ export default function BusTrackerPage() {
 
   const [sheetOpen, setSheetOpen] = useState(false)
 
+  const mapBuses = useMemo(() =>
+    buses.map(({ id, lat, lon, route }) => ({
+      id,
+      lat,
+      lon,
+      route,
+    })),
+    [buses]
+  )
+
   const stats = {
     active: buses.length,
     onTime: buses.filter((b) => b.status === "On Time").length,
@@ -106,12 +118,12 @@ export default function BusTrackerPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="h-screen flex flex-col  overflow-hidden">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-background border-b flex-shrink-0">
+      <header className="absolute top-0 m-2 z-40 rounded-sm bg-card shadow-2xl backdrop-blur-xs flex-shrink-0  ">
         <div className="px-3 sm:px-4 py-2.5 sm:py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 mr-2 sm:gap-3">
               <div className="w-8 h-8 sm:w-9 sm:h-9 bg-primary rounded-lg flex items-center justify-center">
                 <Bus className="w-4 h-4 sm:w-5 sm:h-5 text-primary-foreground" />
               </div>
@@ -124,7 +136,6 @@ export default function BusTrackerPage() {
             </div>
 
             <div className="flex items-center gap-1.5 sm:gap-2">
-              
               <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs px-2 sm:px-3">
                 <MapPin className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Tétouan</span>
@@ -161,24 +172,10 @@ export default function BusTrackerPage() {
         <div className="absolute inset-0 z-0">
           <Map
             center={[35.57249, -5.35525]}
-            buses={buses.map(({ id, lat, lon, route }) => ({
-              id,
-              lat,
-              lon,
-              route,
-            }))}
+            buses={mapBuses}
             className="h-full w-full"
             onBusClick={handleBusClick}
-          >
-            <div className="flex gap-2">
-              <Button size="icon" variant="outline" className="bg-background shadow-lg h-8 w-8 sm:h-9 sm:w-9">
-                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </Button>
-              <Button size="icon" variant="outline" className="bg-background shadow-lg h-8 w-8 sm:h-9 sm:w-9">
-                <Navigation className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </Button>
-            </div>
-          </Map>
+          />
         </div>
       </main>
 
