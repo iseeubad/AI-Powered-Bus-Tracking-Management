@@ -84,15 +84,23 @@ export default function BusTrackerPage() {
   ])
 
   const [selectedBus, setSelectedBus] = useState<BusItem | null>(null)
-
+  const [focusBus, setFocusBus] = useState<BusItem | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
 
   const mapBuses = useMemo(() =>
-    buses.map(({ id, lat, lon, route }) => ({
-      id,
-      lat,
-      lon,
-      route,
+    buses.map((bus) => ({
+      id: bus.id,
+      lat: bus.lat,
+      lon: bus.lon,
+      route: bus.route,
+      isOnTime: bus.status === "On Time",
+      eta: bus.eta,
+      price: bus.price,
+      passengers: bus.passengers,
+      capacity: bus.capacity,
+      nextStop: bus.nextStop,
+      driver: bus.driver,
+      path: bus.path,
     })),
     [buses]
   )
@@ -105,9 +113,32 @@ export default function BusTrackerPage() {
   }
 
   const handleTrackBus = (bus: BusItem) => {
-    setSelectedBus(bus)
+    // Focus on the bus marker instead of opening modal
+    setFocusBus(bus)
     setSheetOpen(false)
   }
+
+  const handleShowMore = (bus: BusItem) => {
+    setSelectedBus(bus)
+  }
+
+  const focusBusForMap = useMemo(() => {
+    if (!focusBus) return null
+    return {
+      id: focusBus.id,
+      lat: focusBus.lat,
+      lon: focusBus.lon,
+      route: focusBus.route,
+      isOnTime: focusBus.status === "On Time",
+      eta: focusBus.eta,
+      price: focusBus.price,
+      passengers: focusBus.passengers,
+      capacity: focusBus.capacity,
+      nextStop: focusBus.nextStop,
+      driver: focusBus.driver,
+      path: focusBus.path,
+    }
+  }, [focusBus])
 
   const handleBusClick = (bus: { id: string; lat: number; lon: number; route: string }) => {
     // Find the full bus data from our buses array
@@ -174,7 +205,8 @@ export default function BusTrackerPage() {
             center={[35.57249, -5.35525]}
             buses={mapBuses}
             className="h-full w-full"
-            onBusClick={handleBusClick}
+            onShowMore={handleShowMore}
+            focusBus={focusBusForMap}
           />
         </div>
       </main>
@@ -184,6 +216,7 @@ export default function BusTrackerPage() {
         bus={selectedBus}
         open={!!selectedBus}
         onOpenChange={(open: boolean) => !open && setSelectedBus(null)}
+        onTrackBus={handleTrackBus}
       />
     </div>
   )
