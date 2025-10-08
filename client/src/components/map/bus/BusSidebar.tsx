@@ -29,103 +29,94 @@ export function BusSidebar({ buses, onTrackBus }: BusSidebarProps) {
   const [expandedBus, setExpandedBus] = useState<string | null>(null)
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-0.5">
       {buses.map((bus) => (
         <div
           key={bus.id}
-          className="rounded-lg border border-border hover:border-muted-foreground/30 transition-all overflow-hidden"
+          className="border-b border-border/50 hover:bg-muted/30 transition-all overflow-hidden"
         >
           <button
             onClick={() => setExpandedBus(expandedBus === bus.id ? null : bus.id)}
-            className="w-full text-left p-2 hover:bg-muted/50 transition-colors"
+            className="w-full text-left px-3 py-2 transition-colors"
           >
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-muted rounded-lg flex items-center justify-center shrink-0">
-                  <Bus className="w-5 h-5 text-foreground" />
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                <div className="w-8 h-8 bg-primary/10 rounded flex items-center justify-center shrink-0">
+                  <Bus className="w-4 h-4 text-primary" />
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">{bus.id}</p>
-                  <p className="text-sm text-muted-foreground">Route {bus.route}</p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-2">
+                    <p className="font-semibold text-sm text-foreground">{bus.id}</p>
+                    <p className="text-xs text-muted-foreground">Rte {bus.route}</p>
+                  </div>
+                  <div className="flex items-center gap-2 mt-0.5 text-xs">
+                    <span className="text-muted-foreground truncate">{bus.nextStop}</span>
+                    <span className="text-primary font-medium shrink-0">{bus.eta}</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <span
                   className={cn(
-                    "text-xs px-2 py-1 rounded-full whitespace-nowrap",
+                    "text-[10px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wide",
                     bus.status === "On Time"
-                      ? "bg-green-100 text-teal-700 dark:bg-green-900/30 dark:text-teal-400"
-                      : "bg-orange-100 text-red-700 dark:bg-orange-900/30 dark:text-red-400",
+                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                      : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
                   )}
                 >
-                  {bus.status}
+                  {bus.status === "On Time" ? "On Time" : "Delayed"}
                 </span>
-                <span className="text-muted-foreground text-lg font-light w-5 text-center">
+                <span className="text-muted-foreground/60 text-sm w-4 text-center">
                   {expandedBus === bus.id ? "−" : "+"}
                 </span>
               </div>
             </div>
-            <div className="mt-3 flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
-              <span>
-                {bus.passengers}/{bus.capacity} passengers
-              </span>
-              <span>→ {bus.nextStop}</span>
-              <span className="font-medium text-teal-600 dark:text-teal-400">{bus.eta}</span>
-            </div>
           </button>
 
           {expandedBus === bus.id && (
-            <div className="px-4 pb-4 border-t border-border bg-muted/30">
-              <div className="pt-4 space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Price</p>
-                    <p className="font-semibold text-teal-600 dark:text-teal-400">{bus.price}</p>
+            <div className="px-3 pb-3 bg-muted/20 border-t border-border/50">
+              <div className="pt-3 space-y-3">
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="bg-background rounded p-2">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Price</p>
+                    <p className="font-semibold text-sm text-foreground">{bus.price}</p>
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">ETA</p>
-                    <p className="font-semibold text-blue-500 dark:text-blue-400">{bus.eta}</p>
+                  <div className="bg-background rounded p-2">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Capacity</p>
+                    <p className="font-semibold text-sm text-foreground">{bus.passengers}/{bus.capacity}</p>
+                  </div>
+                  <div className="bg-background rounded p-2">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Driver</p>
+                    <p className="font-semibold text-sm text-foreground truncate">{bus.driver.split(' ')[0]}</p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Driver</p>
-                  <p className="text-sm font-medium">{bus.driver}</p>
-                </div>
-
-                <div>
-                  <p className="text-xs text-muted-foreground mb-2">Route Path</p>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wide mb-1.5">Route</p>
                   <div className="flex flex-wrap gap-1">
                     {bus.path.map((stop, idx) => (
-                      <span key={idx} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                      <span key={idx} className="text-[10px] bg-background border border-border px-2 py-0.5 rounded">
                         {stop}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div>
-                  <p className="text-xs text-muted-foreground mb-1">Position</p>
-                  <p className="text-xs font-mono text-muted-foreground">
-                    {bus.lat.toFixed(6)}, {bus.lon.toFixed(6)}
-                  </p>
-                </div>
-
-                <div className="flex gap-2 pt-2">
+                <div className="grid grid-cols-2 gap-2">
                   <Button
                     size="sm"
-                    className="flex-1"
+                    className="h-8 text-xs"
                     onClick={(e) => {
                       e.stopPropagation()
                       onTrackBus(bus)
                     }}
                   >
-                    Track on Map
+                    Track
                   </Button>
                   <Button
                     size="sm"
                     variant="outline"
-                    className="flex-1 bg-transparent"
+                    className="h-8 text-xs"
                     onClick={(e) => e.stopPropagation()}
                   >
                     Directions

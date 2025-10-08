@@ -106,7 +106,7 @@ export default function BusTrackerPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden">
+    <div className="h-dvh flex flex-col bg-background overflow-hidden">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-background border-b flex-shrink-0">
         <div className="px-3 sm:px-4 py-2.5 sm:py-3">

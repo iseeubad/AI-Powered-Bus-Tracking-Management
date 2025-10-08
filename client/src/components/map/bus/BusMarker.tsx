@@ -23,29 +23,30 @@ export default function BusMarker({ id, lat, lon, route, className, isOnTime = t
       className: "custom-bus-marker",
       html: `
         <div class="${cn(
-          // Base styles - clean and minimal
+          // Compact professional design
           "flex items-center justify-center",
-          "p-1",
-          "rounded-full",
-          "font-medium text-xs",
-          // Minimal colors - neutral with subtle status indication
-          isOnTime ? "bg-blue-500/90 text-white border-white" : "bg-purple-900 text-white border-white",
-          // Subtle border and shadow
-          "border-1",
-          "shadow-md",
-          // Interactions
+          "w-7 h-7",
+          "rounded-md",
+          "font-semibold text-[10px]",
+          // Clean minimal colors matching sidebar
+          isOnTime 
+            ? "bg-primary text-primary-foreground border border-primary" 
+            : "bg-amber-500 text-white border border-amber-600",
+          // Subtle professional shadow
+          "shadow-sm",
+          // Smooth interactions
           "cursor-pointer",
-          "transition-all duration-200",
-          "hover:scale-105 hover:shadow-lg",
-          // Custom className for full control
+          "transition-all duration-150",
+          "hover:scale-110 hover:shadow-md",
+          // Custom className
           className,
         )}">
           ${displayId}
         </div>
       `,
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
-      popupAnchor: [0, -20],
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -14],
     })
   }, [id, className, isOnTime])
 
@@ -58,10 +59,22 @@ export default function BusMarker({ id, lat, lon, route, className, isOnTime = t
       }}
     >
       <Popup>
-        <div className="p-2 min-w-[120px]">
-          <div className="font-semibold text-base">Bus {id}</div>
-          <div className="text-sm text-muted-foreground">Route {route}</div>
-          <div className="text-xs text-muted-foreground mt-1">Click to track</div>
+        <div className="p-2 min-w-[140px]">
+          <div className="flex items-baseline gap-2 mb-1">
+            <span className="font-semibold text-sm">{id}</span>
+            <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Rte {route}</span>
+          </div>
+          <div className={cn(
+            "inline-block text-[9px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wide",
+            isOnTime
+              ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+              : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+          )}>
+            {isOnTime ? "On Time" : "Delayed"}
+          </div>
+          <div className="text-[10px] text-muted-foreground mt-2 border-t border-border pt-2">
+            Click to track on map
+          </div>
         </div>
       </Popup>
     </Marker>
