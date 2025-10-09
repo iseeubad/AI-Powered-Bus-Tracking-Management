@@ -3,14 +3,14 @@ The Harversine Formula is a mathematical equation used to calculate the great-ci
 
 ### 📐 Formula
 
-\[
+$$
 d = 2R \cdot \arcsin\left(
   \sqrt{
     \sin^2\left(\frac{\Delta \varphi}{2}\right) +
     \cos(\varphi_1)\cos(\varphi_2)\sin^2\left(\frac{\Delta \lambda}{2}\right)
   }
 \right)
-\]
+$$
 
 
 ### Where:
