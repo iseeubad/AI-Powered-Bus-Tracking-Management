@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 mongoose
   .connect(process.env.MONGODB_URI as string)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection failed:", err));
+  .catch((err) => console.error("Failed to connect to MongoDB !!", err));
 
 
 export default app;

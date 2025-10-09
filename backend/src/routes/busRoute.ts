@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+    getAllBuses,
     createBus,
     getBusById,
     updateBus,
@@ -9,6 +10,7 @@ import {
 const router = Router();
 
 // CRUD routes (create, read, update, delete)
+router.get("/", getAllBuses);
 router.post("/", createBus);
 router.get("/:id", getBusById);
 router.put("/:id", updateBus);
