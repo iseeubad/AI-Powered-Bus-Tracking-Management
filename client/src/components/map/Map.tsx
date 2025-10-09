@@ -79,7 +79,7 @@ export default function Map({
     <div className="custom-leaflet-map" style={{ position: "relative", height: normalizedHeight, width: "100%", ...style }}>
       <MapContainer center={center} zoom={zoom} zoomControl={false} style={{ height: "100%", width: "100%" }}>
         <ZoomControl position="topright" />
-        <MapFocus focusBus={focusBus} />
+        <MapFocus focusBus={focusBus ?? null} />
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
