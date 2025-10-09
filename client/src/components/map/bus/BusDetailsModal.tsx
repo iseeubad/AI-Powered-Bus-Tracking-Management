@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import type { BusItem } from "./BusSidebar"
+import type { BusItem } from "@/types"
 
 interface BusDetailsDialogProps {
   bus: BusItem | null

@@ -1,0 +1,22 @@
+{
+  "stations": [
+    {
+      "id": "X",
+      "name": "X",
+      "coordinates": {
+        "latitude": 000,
+        "longitude": 0000
+      },
+      "lines": ["LX", "LX", "LX"]
+    },
+    {
+      "id": "X",
+      "name": "X",
+      "coordinates": {
+        "latitude": 000,
+        "longitude": 0000
+      },
+      "lines": ["LX", "LX"]
+    }
+  ]
+}

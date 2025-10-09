@@ -27,16 +27,9 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-    .connect(process.env.MONGO_URI as string)
-    .then(() => {
-        console.log("Connected to mongoDB");
-        const PORT = process.env.PORT || 5000;
-        app.listen(PORT, () => {
-            console.log(`server running on ${PORT}`);
-        })
-    })
-    .catch((err) => {
-        console.error("MongoDB connection failed: ", err);
-    });
+  .connect(process.env.MONGODB_URI as string)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection failed:", err));
+
 
 export default app;

@@ -1,19 +1,21 @@
 "use client"
 
 import "leaflet/dist/leaflet.css"
-import { useMemo, type ReactNode, type CSSProperties, useEffect, useRef } from "react"
+import { useMemo, useEffect } from "react"
 import { MapContainer, TileLayer, useMap } from "react-leaflet"
 import ZoomControl from "./ZoomControl"
-import BusMarker from "./bus/BusMarker" // Updated import path to use bus subfolder
+import BusMarker from "./bus/BusMarker"
+import type { MapBus, MapProps } from "@/types"
+import { MAP_CONFIG } from "@/constants"
 
 // Component to handle map focus
-function MapFocus({ focusBus }: { focusBus: Bus | null }) {
+function MapFocus({ focusBus }: { focusBus: MapBus | null }) {
   const map = useMap()
 
   useEffect(() => {
     if (focusBus) {
       // Focus on the bus location
-      map.setView([focusBus.lat, focusBus.lon], 16)
+      map.setView([focusBus.lat, focusBus.lon], MAP_CONFIG.FOCUS_ZOOM)
       
       // Open popup for the focused bus after a short delay
       setTimeout(() => {
@@ -28,39 +30,10 @@ function MapFocus({ focusBus }: { focusBus: Bus | null }) {
   return null
 }
 
-export type Bus = {
-  id: string
-  lat: number
-  lon: number
-  route: string
-  isOnTime?: boolean
-  eta?: string
-  price?: string
-  passengers?: number
-  capacity?: number
-  nextStop?: string
-  driver?: string
-  path?: string[]
-}
-
-export interface MapProps {
-  buses?: Bus[]
-  center?: [number, number]
-  zoom?: number
-  height?: string | number
-  className?: string
-  style?: CSSProperties
-  markerClassName?: string
-  children?: ReactNode
-  onBusClick?: (bus: Bus) => void
-  focusBus?: Bus | null
-  onShowMore?: (bus: Bus) => void
-}
-
 export default function Map({
   buses = [],
-  center = [35.57249206623414, -5.355249154765646],
-  zoom = 14,
+  center = MAP_CONFIG.DEFAULT_CENTER,
+  zoom = MAP_CONFIG.DEFAULT_ZOOM,
   height = "100dvh",
   className,
   style,
@@ -81,10 +54,10 @@ export default function Map({
         <ZoomControl position="topright" />
         <MapFocus focusBus={focusBus ?? null} />
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          minZoom={0}
-          maxZoom={19}
+          url={MAP_CONFIG.TILE_URL}
+          attribution={MAP_CONFIG.ATTRIBUTION}
+          minZoom={MAP_CONFIG.MIN_ZOOM}
+          maxZoom={MAP_CONFIG.MAX_ZOOM}
         />
         {buses.map((bus) => (
           <BusMarker

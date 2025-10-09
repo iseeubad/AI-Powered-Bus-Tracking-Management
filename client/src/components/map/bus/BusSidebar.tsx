@@ -4,21 +4,7 @@ import { useState } from "react"
 import { Bus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-export type BusItem = {
-  id: string
-  lat: number
-  lon: number
-  route: string
-  status: string
-  passengers: number
-  nextStop: string
-  price: string
-  eta: string
-  path: string[]
-  driver: string
-  capacity: number
-}
+import type { BusItem } from "@/types"
 
 interface BusSidebarProps {
   buses: BusItem[]
