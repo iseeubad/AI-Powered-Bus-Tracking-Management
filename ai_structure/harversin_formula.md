@@ -1,7 +1,7 @@
 # what is the Haversien Formula? 
 The Harversine Formula is a mathematical equation used to calculate the great-circle distance between two points on hte surface of a sphere given their latitude and longitude.
 
-the formula 
+### 📐 Formula
 
 \[
 d = 2R \cdot \arcsin\left(
@@ -11,6 +11,7 @@ d = 2R \cdot \arcsin\left(
   }
 \right)
 \]
+
 
 ### Where:
 
