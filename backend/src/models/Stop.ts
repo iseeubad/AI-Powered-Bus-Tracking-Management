@@ -12,7 +12,7 @@ export interface IStop extends Document {
     is_active?: boolean;
     served_routes: string[];
     demand_score?: number;
-    last_demande_update?: Date;
+    last_demand_update?: Date;
 }
 
 const stopSchema = new Schema<IStop>({
@@ -34,7 +34,7 @@ const stopSchema = new Schema<IStop>({
     is_active: {type: Boolean, default: true},
     served_routes: [String],
     demand_score: { type: Number, default: 0},
-    last_demande_update: Date
+    last_demand_update: Date
 });
 
 stopSchema.index({ location: "2dsphere" });

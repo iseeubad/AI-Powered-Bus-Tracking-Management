@@ -17,6 +17,27 @@ export const createBus = async (req: Request, res: Response) => {
     }
 };
 
+// get all buses
+
+export const getAllBuses = async (req: Request, res: Response) => {
+    try {
+        const buses = await Bus.find();
+        if (!buses.length)
+            res.status(404).json({ message: "No bus fouund !!"});
+        res.status(200).json({
+            success: true,
+            count: buses.length,
+            data: buses
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to get all buses !!",
+            error: (error as Error).message
+        });
+    }
+};
+
 // get one bus by id
 
 export const getBusById = async (req: Request, res: Response) => {
