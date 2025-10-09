@@ -37,8 +37,8 @@ export default function BusMarker({
           "font-semibold text-[10px]",
           // Clean minimal colors matching sidebar
           isOnTime 
-            ? "bg-primary text-primary-foreground border border-primary" 
-            : "bg-amber-500 text-white border border-amber-600",
+            ? "bg-primary/80 text-primary-foreground border-none backdrop-blur-sm" 
+            : "bg-amber-500/80 text-white border border-none backdrop-blur-sm",
           // Subtle professional shadow
           "shadow-sm",
           // Smooth interactions
