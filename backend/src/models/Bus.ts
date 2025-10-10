@@ -1,6 +1,5 @@
-import { Schema, model, Document, Types } from "mongoose";
-
-export interface IBus extends Document {
+import { Schema, model, Document, Types } from "mongoose"; 
+export interface IBus extends Document { 
     fleet_no: string; // the unique internal bus number
     plate?: string; // the licence plate number
     operator?: string; // which bus company run this bus
@@ -48,7 +47,7 @@ const busSchema = new Schema<IBus>({
     assigned_routes: String,
     current_trip_id: String,
     last_telemetry: {
-        ts: {type: Date, default: Date.now },
+        ts: {type: Date, default: Date.now, required: false },
         location: {
             type: {type: String, enum: ["Point"], default: "Point"},
             coordinates: [Number]

@@ -6,6 +6,8 @@ import {
     updateBus,
     deleteBus, 
 } from "../controllers/busController";
+import { sendBusDataToAI } from "../controllers/busDataPost"
+
 
 const router = Router();
 
@@ -15,5 +17,6 @@ router.post("/", createBus);
 router.get("/:id", getBusById);
 router.put("/:id", updateBus);
 router.delete("/:id", deleteBus);
+router.post("/buses-data", sendBusDataToAI);
 
 export default router;

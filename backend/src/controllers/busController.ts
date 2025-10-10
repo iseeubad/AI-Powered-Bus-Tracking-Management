@@ -66,8 +66,9 @@ export const updateBus = async (req: Request, res: Response) => {
             message: "Invalid bus id"
         });
     }
+    console.log(req)
     try {
-        const bus = await Bus.findByIdAndUpdate(id, req.body, { new: true });
+        const bus = await Bus.findByIdAndUpdate(id, req.body, {new:true, overwrite: true, runValidators:true});
         if (!bus) return res.status(404).json({
             message: "Bus by id not found!",
         });
