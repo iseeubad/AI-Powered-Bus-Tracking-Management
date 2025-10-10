@@ -1,9 +1,0 @@
-flask 
-flask-cors
-pandas
-numpy
-geopy
-fastapi
-uvicorn
-scikit-learn
-joblib
