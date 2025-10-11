@@ -1,6 +1,5 @@
-import { Schema, model, Document, Types } from "mongoose";
-
-export interface IBus extends Document {
+import { Schema, model, Document, Types } from "mongoose"; 
+export interface IBus extends Document { 
     fleet_no: string; // the unique internal bus number
     plate?: string; // the licence plate number
     operator?: string; // which bus company run this bus
@@ -10,13 +9,13 @@ export interface IBus extends Document {
         standing?: number;
     };
     features?: string[]; // list of extra features bhal wifi (ofc la hh)
-    status: "IN_SERVICE" | "OUT_OF_SERVICE" | "MAINTENANCE"; // current status of the bus
+    status?: "IN_SERVICE" | "OUT_OF_SERVICE" | "MAINTENANCE"; // current status of the bus
     assigned_routes?: string; // the route number wla id this bus is currently assigned to 
     current_trip_id?: string; // id of the current trip/journey the bus is on
     last_telemetry?: { // telemetry: hte latest real-time data sent by the bus.
         ts: Date; // timestamp when this telemetry was recorded
         location: { // GeoJSON location of the bus right now.
-            type: "Point";
+            type: ["Point"];
             coordinates: [number, number];
         };
         speed_kmh?: number; // bus speed in km/h
@@ -48,7 +47,7 @@ const busSchema = new Schema<IBus>({
     assigned_routes: String,
     current_trip_id: String,
     last_telemetry: {
-        ts: {type: Date, default: Date.now },
+        ts: {type: Date, default: Date.now, required: false },
         location: {
             type: {type: String, enum: ["Point"], default: "Point"},
             coordinates: [Number]

@@ -1,0 +1,6 @@
+- app.py: The Flask API entry  point. defines endpoints /ingest /predict, /train  loads the  model and responds to backend request.
+-  model/preprocessing.py : contains all the preprocessing  logic (cleaning, scalling , feature engineering). ensures raw bus data become model-ready
+- mode/train_mode.py : tains the scikit-learn model (linear regression, random forest, etc) usign historical telemetrydata and saves it as model.pkl
+- model/model.pkl : the trained model file,  saved with joblib so it can be reloaded instantly in app.py
+- utils/logger.py: simple logging utility to keep track of when data arrives, predictions are made , and errors occur (usefule during hackathon debugging)
+- data/telemetry.csv: stores raw telemetry data (optional, help)

@@ -16,11 +16,13 @@ const app: Application = express();
 // middleware
 app.use(cors());
 app.use(express.json());
+import { Router } from "express";
 app.use(morgan("dev"));
 
 app.use("/api/buses", busRoute);
 app.use("/api/stops", stopRoute);
 app.use("/api/tracks", trackRoute);
+
 
 app.get("/", (req, res) => {
     res.send("Bus Tracking Management BTM project api is running...");
@@ -29,7 +31,7 @@ app.get("/", (req, res) => {
 mongoose
   .connect(process.env.MONGODB_URI as string)
   .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection failed:", err));
+  .catch((err) => console.error("Failed to connect to MongoDB !!", err));
 
 
 export default app;

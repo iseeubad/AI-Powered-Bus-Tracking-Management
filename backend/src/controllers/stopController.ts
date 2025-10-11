@@ -5,11 +5,21 @@ import { Stop } from "../models/Stop";
 // get all the stops 
 
 export const getAllStops = async (req: Request, res: Response) => {
-    try{
-        const stops = Stop.find();
-        res.status(200).json(stops);
-    } catch (error){
-        res.status(400).json({ message: "error fetching stops", error });
+    try {
+        const stops = await Stop.find().sort({ last_demand_update : -1 });
+        if (!stops.length)
+            res.status(404).json({ message: "No stop found !!"});
+        res.status(200).json({
+            success: true,
+            count: stops.length,
+            data: stops 
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to get all stops !!",
+            error: (error as Error).message
+        });
     }
 };
 
