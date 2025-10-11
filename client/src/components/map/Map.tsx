@@ -1,31 +1,50 @@
 "use client"
 
 import "leaflet/dist/leaflet.css"
-import { useMemo, useEffect } from "react"
-import { MapContainer, TileLayer, useMap } from "react-leaflet"
+import { useMemo, useEffect, useState } from "react"
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet"
 import ZoomControl from "./ZoomControl"
 import BusMarker from "./bus/BusMarker"
-import type { MapBus, MapProps } from "@/types"
+import type { BusItem, MapProps } from "@/types"
 import { MAP_CONFIG } from "@/constants"
+import { Button } from "@/components/ui/button"
+import { X, Navigation } from "lucide-react"
 
-// Component to handle map focus
-function MapFocus({ focusBus }: { focusBus: MapBus | null }) {
+// Component to detect user interactions with the map
+function MapInteractionHandler({
+  onInteraction
+}: {
+  onInteraction: () => void
+}) {
+  useMapEvents({
+    drag: () => onInteraction(),
+    zoom: () => onInteraction(),
+    click: () => onInteraction(),
+  })
+  return null
+}
+
+// Component to handle continuous bus tracking
+function BusTracker({
+  focusBus,
+}: {
+  focusBus: BusItem | null
+}) {
   const map = useMap()
 
   useEffect(() => {
-    if (focusBus) {
-      // Focus on the bus location
-      map.setView([focusBus.lat, focusBus.lon], MAP_CONFIG.FOCUS_ZOOM)
-      
-      // Open popup for the focused bus after a short delay
-      setTimeout(() => {
-        const marker = document.querySelector(`[data-bus-id="${focusBus.id}"]`)
-        if (marker) {
-          (marker as any)._popup?.openOn(map)
-        }
-      }, 100)
+    if (!focusBus) return
+
+    // Initial center on the bus
+    const t = setTimeout(() => {
+      map.setView([focusBus.lat, focusBus.lon])
+    }, 50);
+
+    
+    return () => {
+      clearTimeout(t)
     }
-  }, [focusBus, map])
+  }, [focusBus, focusBus?.lat, focusBus?.lon, map])
 
   return null
 }
@@ -43,16 +62,22 @@ export default function Map({
   focusBus,
   onShowMore,
 }: MapProps) {
+
   const normalizedHeight = useMemo(() => {
     if (typeof height === "number") return `${height}px`
     return height
   }, [height])
 
+
+
   return (
     <div className="custom-leaflet-map" style={{ position: "relative", height: normalizedHeight, width: "100%", ...style }}>
+
       <MapContainer center={center} zoom={zoom} zoomControl={false} style={{ height: "100%", width: "100%" }}>
         <ZoomControl position="topright" />
-        <MapFocus focusBus={focusBus ?? null} />
+        <BusTracker
+          focusBus={focusBus ?? null}
+        />
         <TileLayer
           url={MAP_CONFIG.TILE_URL}
           attribution={MAP_CONFIG.ATTRIBUTION}
@@ -66,7 +91,7 @@ export default function Map({
             lat={bus.lat}
             lon={bus.lon}
             route={bus.route}
-            isOnTime={bus.isOnTime ?? Math.random() > 0.3}
+            isOnTime={bus.status == "On Time"}
             className={markerClassName}
             onClick={() => onBusClick?.(bus)}
             eta={bus.eta}

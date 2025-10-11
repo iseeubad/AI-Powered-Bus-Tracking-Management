@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import type { BusItem, MapBus } from '@/types'
+import type { BusItem } from '@/types'
 
 export function useBusTracking() {
   const [selectedBus, setSelectedBus] = useState<BusItem | null>(null)
@@ -15,24 +15,6 @@ export function useBusTracking() {
     setSelectedBus(bus)
   }
 
-  const focusBusForMap = useMemo(() => {
-    if (!focusBus) return null
-    return {
-      id: focusBus.id,
-      lat: focusBus.lat,
-      lon: focusBus.lon,
-      route: focusBus.route,
-      isOnTime: focusBus.status === "On Time",
-      eta: focusBus.eta,
-      price: focusBus.price,
-      passengers: focusBus.passengers,
-      capacity: focusBus.capacity,
-      nextStop: focusBus.nextStop,
-      driver: focusBus.driver,
-      path: focusBus.path,
-    }
-  }, [focusBus])
-
   return {
     selectedBus,
     setSelectedBus,
@@ -42,6 +24,5 @@ export function useBusTracking() {
     setSheetOpen,
     handleTrackBus,
     handleShowMore,
-    focusBusForMap,
   }
 }

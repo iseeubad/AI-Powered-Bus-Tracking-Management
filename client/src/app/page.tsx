@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { MapPin, Bus, Menu } from "lucide-react"
+import { MapPin, Bus, Menu, Settings } from "lucide-react"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -17,7 +18,7 @@ import { BusDetailsDialog } from "@/components/map/bus/BusDetailsModal"
 import { useBusTracking } from "@/hooks"
 import { MOCK_BUSES } from "@/data"
 import { MAP_CONFIG, APP_CONFIG } from "@/constants"
-import type { BusItem, MapBus } from "@/types"
+import type { BusItem } from "@/types"
 import './leaflet.scss'
 
 // Dynamically import Map component with SSR disabled
@@ -31,36 +32,18 @@ export default function BusTrackerPage() {
     selectedBus,
     setSelectedBus,
     sheetOpen,
+    focusBus,
+    setFocusBus,
     setSheetOpen,
     handleTrackBus,
-    focusBusForMap,
   } = useBusTracking()
 
-  const handleShowMore = (mapBus: MapBus) => {
+  const handleShowMore = (mapBus: BusItem) => {
     // Convert MapBus to BusItem by finding the full bus data
-    const fullBus = buses.find(b => b.id === mapBus.id)
-    if (fullBus) {
-      setSelectedBus(fullBus)
+    if (mapBus) {
+      setSelectedBus(mapBus)
     }
   }
-
-  const mapBuses = useMemo(() =>
-    buses.map((bus) => ({
-      id: bus.id,
-      lat: bus.lat,
-      lon: bus.lon,
-      route: bus.route,
-      isOnTime: bus.status === "On Time",
-      eta: bus.eta,
-      price: bus.price,
-      passengers: bus.passengers,
-      capacity: bus.capacity,
-      nextStop: bus.nextStop,
-      driver: bus.driver,
-      path: bus.path,
-    })),
-    [buses]
-  )
 
   return (
     <div className="h-dvh flex flex-col bg-background overflow-hidden">
@@ -85,6 +68,13 @@ export default function BusTrackerPage() {
                 <MapPin className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">{APP_CONFIG.CITY}</span>
               </Button>
+
+              <Link href="/admin">
+                <Button variant="outline" size="sm" className="gap-1.5 h-8 text-xs px-2 sm:px-3">
+                  <Settings className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Admin</span>
+                </Button>
+              </Link>
 
               <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
@@ -117,10 +107,11 @@ export default function BusTrackerPage() {
         <div className="absolute inset-0 z-0">
           <Map
             center={MAP_CONFIG.DEFAULT_CENTER}
-            buses={mapBuses}
+            buses={buses}
             className="h-full w-full"
             onShowMore={handleShowMore}
-            focusBus={focusBusForMap}
+            focusBus={focusBus}
+            onBusClick={setFocusBus}
           />
         </div>
       </main>

@@ -1,20 +1,7 @@
-export interface MapBus {
-  id: string
-  lat: number
-  lon: number
-  route: string
-  isOnTime?: boolean
-  eta?: string
-  price?: string
-  passengers?: number
-  capacity?: number
-  nextStop?: string
-  driver?: string
-  path?: string[]
-}
+import { BusItem } from "./bus"
 
 export interface MapProps {
-  buses?: MapBus[]
+  buses?: BusItem[]
   center?: [number, number]
   zoom?: number
   height?: string | number
@@ -22,7 +9,7 @@ export interface MapProps {
   style?: React.CSSProperties
   markerClassName?: string
   children?: React.ReactNode
-  onBusClick?: (bus: MapBus) => void
-  focusBus?: MapBus | null
-  onShowMore?: (bus: MapBus) => void
+  onBusClick?: (bus: BusItem) => void
+  focusBus?: BusItem | null
+  onShowMore?: (bus: BusItem) => void
 }

@@ -3,7 +3,7 @@ export interface BusItem {
   lat: number
   lon: number
   route: string
-  status: string
+  status: "On Time" | "Delayed" | "Canceled"
   passengers: number
   nextStop: string
   price: string
